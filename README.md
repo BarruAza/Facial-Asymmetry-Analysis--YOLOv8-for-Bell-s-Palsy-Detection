@@ -15,7 +15,7 @@ This project integrates **YOLOv8** with **MediaPipe FaceMesh** to analyze facial
 
 The diagram below illustrates the full processing pipeline from face detection to asymmetry scoring:
 
-![System Diagram](output/Diagram_Arsitektur.png)
+![System Diagram](output/Diagram_Arsitektur.png.jpg)
 
 ---
 
@@ -117,13 +117,13 @@ Normalization ensures stable results even when the face is closer or farther fro
 
 ### Detection Result: Possible Bell’s Palsy
 
-![Example 1](output/Bell_Palsy.jpg)
+![Example 1](output/Bell_Palsy.png.jpg)
 
 ---
 
 ### Detection Result: Symmetrical
 
-![Example 2](output/Simetris.jpg)
+![Example 2](output/Simetris.png.jpg)
 
 ---
 
