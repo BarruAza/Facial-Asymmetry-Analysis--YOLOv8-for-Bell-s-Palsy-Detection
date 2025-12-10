@@ -1,35 +1,35 @@
 
 ---
 
-# Analisis Asimetri Wajah dengan Object Detection: Implementasi YOLOv8 untuk Identifikasi Bell’s Palsy
+# Facial Asymmetry Analysis Using Object Detection: YOLOv8 Implementation for Bell’s Palsy Identification
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![YOLOv8](https://img.shields.io/badge/YOLO-v8-green)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-FaceMesh-orange)
 
-Sistem ini menggabungkan **YOLOv8** dan **MediaPipe FaceMesh** untuk melakukan analisis asimetri wajah secara *real-time* sebagai indikator awal kemungkinan **Bell’s Palsy**.
+This project integrates **YOLOv8** with **MediaPipe FaceMesh** to analyze facial asymmetry in *real-time* as an early indicator of possible **Bell’s Palsy**. The system detects facial landmarks, measures geometric imbalance, and provides an asymmetry score directly from the webcam feed.
 
 ---
 
-## 📐 Diagram Arsitektur Sistem
+## 📐 System Architecture Diagram
 
-Diagram berikut menggambarkan alur proses dari deteksi wajah hingga klasifikasi tingkat asimetri:
+The diagram below illustrates the full processing pipeline from face detection to asymmetry scoring:
 
-![Diagram Sistem](output/Diagram_Arsitektur.png.png)
-
----
-
-## 📌 Fitur Utama
-
-* **Deteksi Wajah (YOLOv8):** Menentukan area wajah secara tepat pada setiap frame.
-* **Ekstraksi Landmark (MediaPipe):** Menghasilkan 468 titik landmark wajah untuk analisis geometri.
-* **Perhitungan Asimetri:** Mengukur ketidakseimbangan struktur wajah menggunakan Euclidean Distance.
-* **Analisis Real-time:** Menampilkan hasil dan skor langsung dari webcam.
-* **Visualisasi Akurat:** Garis bantu dan bounding box untuk mempermudah interpretasi.
+![System Diagram](output/Diagram_Arsitektur.png)
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 📌 Key Features
+
+* **Face Detection (YOLOv8):** Accurately locates the facial region on each frame.
+* **Landmark Extraction (MediaPipe):** Captures 468 facial landmarks for detailed measurement.
+* **Asymmetry Measurement:** Calculates geometric imbalance using Euclidean distance.
+* **Real-time Feedback:** Displays results, guides, and asymmetry scores instantly from webcam input.
+* **Clear Visualization:** Bounding boxes and helper lines assist interpretation.
+
+---
+
+## 🛠️ Technologies Used
 
 * Python 3.10
 * Ultralytics YOLOv8
@@ -39,108 +39,107 @@ Diagram berikut menggambarkan alur proses dari deteksi wajah hingga klasifikasi 
 
 ---
 
-## ⚙️ Instalasi
+## ⚙️ Installation
 
-### 1. Membuat Environment
+### 1. Create Conda Environment
 
 ```bash
 conda create -n bellpalsy python=3.10
 conda activate bellpalsy
 ```
 
-### 2. Instal Dependensi
+### 2. Install Required Dependencies
 
 ```bash
 pip install ultralytics mediapipe opencv-python numpy
 ```
 
-### 3. Mengatur Path Model
+### 3. Set Model Path
 
-Edit file `Code/main.py`:
+Open `Code/main.py` and update:
 
 ```python
-BEST_MODEL_PATH = r'C:\Users\NamaUser\...\bell_palsy_project\train_result_v12\weights\best.pt'
+BEST_MODEL_PATH = r'C:\Users\YourUser\...\bell_palsy_project\train_result_v12\weights\best.pt'
 ```
 
 ---
 
-## 🚀 Cara Menjalankan
+## 🚀 How to Run
 
-1. Hubungkan webcam.
-2. Buka folder proyek (`Project_Akhir_Compvis`).
-3. Jalankan program:
+1. Connect your webcam.
+2. Open the project directory (`Project_Akhir_Compvis`).
+3. Run the main script:
 
 ```bash
 python Code/main.py
 ```
 
-4. Indikator pada layar:
+4. On-screen indicators:
 
-   * **Kotak hijau** → Deteksi wajah YOLO
-   * **Garis kuning/ungu** → Pengukuran asimetri
-   * **Skor** → Nilai tingkat asimetri
+   * **Green box** → YOLO face detection
+   * **Yellow/Purple lines** → Facial asymmetry measurement
+   * **Score text** → Asymmetry index
 
-5. Tekan **q** untuk menutup aplikasi.
-
----
-
-## 🧠 Cara Kerja Sistem
-
-### 1. Deteksi Wajah — YOLOv8
-
-Model mendeteksi keberadaan wajah dan memberikan bounding box sebagai acuan.
-
-### 2. Ekstraksi Landmark — MediaPipe
-
-FaceMesh memetakan ratusan titik wajah dan mengambil titik acuan:
-
-* Mata kiri & kanan
-* Alis kiri & kanan
-* Sudut mulut
-
-### 3. Perhitungan Asimetri
-
-Menggunakan:
-
-**Skor = (Selisih Alis + Selisih Mulut) / Jarak Antar Mata**
-
-Normalisasi penting: sistem tetap stabil meski jarak wajah berubah.
-
-### 4. Klasifikasi
-
-* **Skor < 5.0 → SIMETRIS**
-* **Skor ≥ 5.0 → POTENSI BELL’S PALSY**
+5. Press **q** to exit.
 
 ---
 
-## 📸 Contoh Hasil Deteksi
+## 🧠 System Workflow
 
-### Hasil Deteksi: Potensi Bell’s Palsy
+### 1. Face Detection — YOLOv8
 
-![Contoh 1](output/Bell_Palsy.png.jpg)
+The model detects the face and provides bounding box coordinates as the reference region.
+
+### 2. Landmark Extraction — MediaPipe
+
+FaceMesh generates 468 3D facial landmarks. The system focuses on:
+
+* Left & right eyes
+* Left & right eyebrows
+* Mouth corners
+
+### 3. Asymmetry Scoring
+
+Asymmetry is calculated using:
+
+**Score = (Eyebrow Difference + Mouth Corner Difference) / Eye Distance**
+
+Normalization ensures stable results even when the face is closer or farther from the camera.
+
+### 4. Classification
+
+* **Score < 5.0 → SYMMETRICAL**
+* **Score ≥ 5.0 → POSSIBLE BELL’S PALSY**
 
 ---
 
-### Hasil Deteksi: Simetris
+## 📸 Sample Output
 
-![Contoh 2](output/Simetris.png.jpg)
+### Detection Result: Possible Bell’s Palsy
+
+![Example 1](output/Bell_Palsy.jpg)
+
+---
+
+### Detection Result: Symmetrical
+
+![Example 2](output/Simetris.jpg)
 
 ---
 
 ## ⚠️ Disclaimer
 
-Sistem ini digunakan untuk kebutuhan akademik dan **bukan** alat diagnosis medis.
-Untuk evaluasi resmi, konsultasikan dengan dokter spesialis.
+This system is developed for academic purposes and is **not** intended for medical diagnosis.
+For clinical evaluation, please consult a medical professional.
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
-Mahasiswa Fakultas Ilmu Komputer – Universitas Brawijaya
+Students of the Faculty of Computer Science – Universitas Brawijaya:
 
 1. **Barru Wira Yasa** (235150301111021)
 2. **Muhammad Shean Elliora Ribah** (235150307111045)
 3. **Rayhan Sulistyawan** (235150301111019)
 
 ---
-
