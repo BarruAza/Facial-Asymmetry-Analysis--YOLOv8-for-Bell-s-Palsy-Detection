@@ -15,7 +15,7 @@ This project integrates **YOLOv8** with **MediaPipe FaceMesh** to analyze facial
 
 The diagram below illustrates the full processing pipeline from face detection to asymmetry scoring:
 
-![System Diagram](output/Diagram_Arsitektur.png.jpg)
+![System Diagram](output/Diagram_Arsitektur.png.png)
 
 ---
 
